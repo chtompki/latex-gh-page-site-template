@@ -15,9 +15,10 @@
   <!-- Site styles -->
   <link rel="stylesheet" href="styles.css" />
   <!-- KaTeX for math rendering (CSS + JS + auto-render) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/below-the-fray/styles.css">
 </head>
 <body>
   <div class="page">
@@ -89,19 +90,19 @@
     </main>
   </div>
 
+
   <script>
-    // Auto-render KaTeX once the page and scripts have loaded
-    window.addEventListener("DOMContentLoaded", function () { 
-      if (window.renderMathInElement) { 
-        renderMathInElement(document.body, { 
-          delimiters: [
-            {{left: '$$', right: '$$', display: true}},
-            {{left: '\\(', right: '\\)', display: false}},
-            {{left: '\\[', right: '\\]', display: true}}
-          ]
-        });
-      }
-    });
+      window.addEventListener("DOMContentLoaded",function(){
+          if(window.renderMathInElement){
+              renderMathInElement(document.body,{
+                  delimiters:[
+                      {left:"$$",right:"$$",display:true},
+                      {left:"\\(",right:"\\)",display:false},
+                      {left:"\\[",right:"\\]",display:true}
+                  ]
+              });
+          }
+      });
   </script>
 </body>
 </html>
