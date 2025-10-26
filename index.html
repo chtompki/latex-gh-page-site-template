@@ -4,38 +4,62 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Below the Fray</title>
-  <meta name="description" content="An essay by Rob Tompkins presented in a LaTeX-style single-page layout with numbered sections, equations, figures, and references." />
+  <meta name="description" content="An essay by Rob Tompkins presented in a LaTeX-style single-page layout with a mobile-friendly table of contents." />
   <meta property="og:title" content="Below the Fray" />
-  <meta property="og:description" content="An essay by Rob Tompkins in a LaTeX-like web layout." />
+  <meta property="og:description" content="An essay presented in a LaTeX-like web layout with math and a responsive sidebar." />
   <meta property="og:type" content="article" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:site_name" content="robtompkins.com" />
-  <!-- Fonts (STIX Two Text pairs nicely with LaTeX; KaTeX covers math glyphs) -->
+
   <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Site styles -->
   <link rel="stylesheet" href="styles.css" />
-  <!-- KaTeX for math rendering (CSS + JS + auto-render) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/below-the-fray/styles.css">
+
+  <!-- KaTeX for math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="page">
-    <header class="title-block">
-      <h1>Below the Fray</h1>
-      <div class="authors">Rob Tompkins<sup>1</sup></div>
-      <div class="affil"><sup>1</sup>Commonwealth Labs</div>
-      <div class="date">October 25, 2025</div>
-    </header>
+  <!-- Mobile TOC toggle -->
+  <button id="toc-toggle"
+          class="toc-toggle"
+          aria-controls="toc"
+          aria-expanded="false"
+          aria-label="Open table of contents">
+    ☰ Contents
+  </button>
 
-    <section class="abstract">
-      This is a short abstract that summarizes the piece in a few sentences. It opens with a bold italic “Abstract—” lead-in and a subtle rule to mimic LaTeX class files.
-    </section>
+  <!-- Backdrop for drawer -->
+  <div class="toc-backdrop" hidden></div>
 
-    <main>
-      <h2>Introduction</h2>
-      <p class="noindent">This page is built as plain HTML/CSS with a LaTeX-inspired look: paragraph indentation, numbered sections and subsections, equation numbers, and auto-numbered figures/tables. It is lightweight and GitHub Pages–ready.</p>
+  <div class="layout">
+    <!-- LEFT SIDEBAR (ToC) -->
+    <nav class="sidebar" id="toc" aria-label="Table of contents">
+      <h2 class="no-number">Contents</h2>
+      <ul>
+        <li><a href="#introduction">1&nbsp;&nbsp;Introduction</a></li>
+        <li><a href="#background">2&nbsp;&nbsp;Background</a></li>
+        <li><a href="#related-work">2.1&nbsp;&nbsp;Related Work</a></li>
+        <li><a href="#results">3&nbsp;&nbsp;Results</a></li>
+        <li><a href="#discussion">4&nbsp;&nbsp;Discussion</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </nav>
+
+    <!-- MAIN PAPER CONTENT -->
+    <main class="page">
+      <header class="title-block">
+        <h1>Below the Fray</h1>
+        <div class="authors">Rob Tompkins<sup>1</sup></div>
+        <div class="affil"><sup>1</sup>Commonwealth Labs</div>
+        <div class="date">October 25, 2025</div>
+      </header>
+
+      <section class="abstract">
+        This is a short abstract that summarizes the piece in a few sentences. It opens with a bold italic “Abstract—” lead‑in and a subtle rule to mimic LaTeX class files.
+      </section>
+
+      <h2 id="introduction">Introduction</h2>
+      <p class="noindent">This page is built as plain HTML/CSS with a LaTeX‑inspired look: paragraph indentation, numbered sections and subsections, equation numbers, and auto‑numbered figures/tables. It is lightweight and GitHub Pages–ready.</p>
       <p>Inline math like \(x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}\) and display math below will be rendered by KaTeX automatically.</p>
 
       <div class="equation">
@@ -43,18 +67,18 @@
         <div class="number"></div>
       </div>
 
-      <h2>Background</h2>
+      <h2 id="background">Background</h2>
       <p>Use <code>&lt;h2&gt;</code> for sections and <code>&lt;h3&gt;</code> for subsections; counters add the numbers.</p>
 
-      <h3>Related Work</h3>
+      <h3 id="related-work">Related Work</h3>
       <p>References are listed at the end like a LaTeX <em>thebibliography</em><sup class="fn">1</sup>.</p>
 
-      <h2>Results</h2>
-      <p>Figures and tables are styled with captions and auto-numbering.</p>
+      <h2 id="results">Results</h2>
+      <p>Figures and tables are styled with captions and auto‑numbering.</p>
 
       <figure>
         <img src="assets/img/placeholder-900x400.png" alt="Placeholder figure">
-        <figcaption>A placeholder figure with an auto-numbered caption.</figcaption>
+        <figcaption>A placeholder figure with an auto‑numbered caption.</figcaption>
       </figure>
 
       <div class="table">
@@ -70,11 +94,11 @@
         </table>
       </div>
 
-      <h2>Discussion</h2>
-      <p>Typography uses a classic serif face with first-line indentation. For a closer TeX feel, you can swap fonts, but KaTeX ensures math looks correct.</p>
+      <h2 id="discussion">Discussion</h2>
+      <p>Typography uses a classic serif face with first‑line indentation. For a closer TeX feel, you can swap fonts, but KaTeX ensures math looks correct.</p>
 
       <hr />
-      <section class="refs">
+      <section class="refs" id="references">
         <h3>References</h3>
         <ol>
           <li>[1] Lamport, L. <em>LaTeX: A Document Preparation System</em>. Addison‑Wesley, 2nd ed., 1994.</li>
@@ -90,19 +114,63 @@
     </main>
   </div>
 
-
+  <!-- Auto-render KaTeX and enhance TOC (toggle + active section) -->
   <script>
-      window.addEventListener("DOMContentLoaded",function(){
-          if(window.renderMathInElement){
-              renderMathInElement(document.body,{
-                  delimiters:[
-                      {left:"$$",right:"$$",display:true},
-                      {left:"\\(",right:"\\)",display:false},
-                      {left:"\\[",right:"\\]",display:true}
-                  ]
-              });
+    // KaTeX auto-render
+    window.addEventListener("DOMContentLoaded", function () {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true}
+          ]
+        });
+      }
+    });
+
+    // TOC drawer and active-section highlighting
+    (function () {
+      const btn = document.getElementById('toc-toggle');
+      const toc = document.getElementById('toc');
+      const backdrop = document.querySelector('.toc-backdrop');
+
+      function openTOC() {
+        toc.classList.add('sidebar--open');
+        document.body.classList.add('toc-open');
+        btn.setAttribute('aria-expanded', 'true');
+        backdrop.hidden = false;
+      }
+      function closeTOC() {
+        toc.classList.remove('sidebar--open');
+        document.body.classList.remove('toc-open');
+        btn.setAttribute('aria-expanded', 'false');
+        backdrop.hidden = true;
+      }
+      function toggleTOC() { toc.classList.contains('sidebar--open') ? closeTOC() : openTOC(); }
+
+      btn.addEventListener('click', toggleTOC);
+      backdrop.addEventListener('click', closeTOC);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeTOC(); });
+      toc.addEventListener('click', (e) => { if (e.target.matches('a')) closeTOC(); });
+
+      // Highlight active section as you scroll
+      const links = Array.from(toc.querySelectorAll('a[href^="#"]'));
+      const map = new Map(links.map(a => [decodeURIComponent(a.getAttribute('href')), a]));
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = '#' + entry.target.id;
+          const link = map.get(id);
+          if (!link) return;
+          if (entry.isIntersecting) {
+            links.forEach(l => l.classList.remove('is-active'));
+            link.classList.add('is-active');
           }
-      });
+        });
+      }, { rootMargin: '0px 0px -70% 0px', threshold: 0.1 });
+
+      document.querySelectorAll('h2[id], h3[id]').forEach(sec => obs.observe(sec));
+    }());
   </script>
 </body>
 </html>
