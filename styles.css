@@ -1,13 +1,16 @@
-/* LaTeX-like single page styles — GitHub Pages friendly */
+/* Base typography and LaTeX-like styles */
 :root {
-  --page-width: 46rem;    /* ≈ 6.5in at 12pt */
+  --page-width: 46rem;
   --text-color: #111;
   --accent: #333;
   --rule: #bbb;
   --line-height: 1.55;
+  --sidebar-w: 16rem;
 }
 
-html { font-size: 16px; }
+html { font-size: 16px; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
 body {
   margin: 0;
   color: var(--text-color);
@@ -19,18 +22,50 @@ body {
   hyphens: auto;
 }
 
-.page {
-  max-width: var(--page-width);
-  margin: 2.5rem auto 6rem auto;
-  padding: 0 1.25rem;
+/* Ensure anchored headings are not hidden behind the top edge */
+h2[id], h3[id] { scroll-margin-top: 80px; }
+
+/* Layout */
+.layout {
+  display: flex;
+  align-items: flex-start;
+  max-width: calc(16rem + var(--page-width) + 8rem);
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
-/* Title block (\maketitle feel) */
+/* Sidebar (desktop) */
+.sidebar {
+  position: sticky;
+  top: 1rem;
+  flex: 0 0 var(--sidebar-w);
+  padding: 1rem;
+  border-right: 1px solid #ccc;
+  height: 100vh;
+  overflow-y: auto;
+  font-size: 0.95rem;
+  background: #fafafa;
+}
+.sidebar h2 { font-size: 1rem; margin-top: 0; border-bottom: 1px solid #ccc; padding-bottom: .25rem; }
+.sidebar ul { list-style: none; margin: .5rem 0 0 0; padding: 0; }
+.sidebar li { margin: .3rem 0; }
+.sidebar a { color: #333; text-decoration: none; }
+.sidebar a:hover { text-decoration: underline; }
+.sidebar a.is-active { text-decoration: underline; font-weight: 600; }
+
+/* Paper column */
+.page {
+  flex: 1;
+  padding-left: 2rem;
+  max-width: var(--page-width);
+}
+
+/* Title block */
 .title-block { text-align: center; margin-bottom: 2rem; }
 .title-block h1 {
   margin: 0 0 .5rem 0;
   font-weight: 700;
-  font-size: 1.9rem; /* ≈ 22.8pt */
+  font-size: 1.9rem;
   letter-spacing: .2px;
 }
 .title-block .authors,
@@ -56,19 +91,18 @@ body {
   margin-right: .35rem;
 }
 
-/* Paragraphs, indentation like LaTeX */
+/* Paragraphs */
 p { margin: .45rem 0; text-indent: 1.5em; }
 .noindent { text-indent: 0; }
 
-/* Section numbering */
-main { counter-reset: section subsection figure table eqn; }
-h2, h3 { font-weight: 700; margin: 1.35rem 0 .5rem 0; line-height: 1.25; }
-h2 { counter-increment: section; counter-reset: subsection; font-size: 1.25rem; }
-h2::before { content: counter(section) ". "; }
-h3 { counter-increment: subsection; font-size: 1.05rem; }
-h3::before { content: counter(section) "." counter(subsection) " "; }
+/* Section numbering (scoped to .page to avoid numbering in sidebar) */
+.page { counter-reset: section subsection figure table eqn; }
+.page h2 { counter-increment: section; counter-reset: subsection; font-size: 1.25rem; }
+.page h2::before { content: counter(section) ". "; }
+.page h3 { counter-increment: subsection; font-size: 1.05rem; }
+.page h3::before { content: counter(section) "." counter(subsection) " "; }
 
-/* Figures and tables with captions */
+/* Figures and tables */
 figure, .table { margin: 1rem auto; }
 figure { counter-increment: figure; }
 figure > img { max-width: 100%; display: block; margin: 0 auto; }
@@ -85,35 +119,81 @@ thead tr { border-bottom: 2px solid #000; }
 tbody tr + tr { border-top: 1px solid #ddd; }
 th, td { text-align: left; padding: .45rem .35rem; }
 
-/* Equations: centered with (n) on right, LaTeX-like */
+/* Equations */
 .equation { display: flex; align-items: center; margin: .8rem 0; }
 .equation .content { flex: 1 1 auto; text-align: center; }
 .equation .number { flex: 0 0 auto; width: 3rem; text-align: right; }
 .equation { counter-increment: eqn; }
 .equation .number::before { content: "(" counter(eqn) ")"; }
 
-/* Footnotes */
+/* Footnotes and refs */
 sup.fn { font-size: .7em; vertical-align: super; }
 .footnotes { border-top: 1px solid var(--rule); margin-top: 2rem; padding-top: .5rem; }
 .footnotes ol { margin: .5rem 0 0 0; padding-left: 1.15rem; }
-
-/* Bibliography (numeric) */
 .refs { margin-top: 1.5rem; }
 .refs h3 { margin-top: 1rem; }
 .refs ol { padding-left: 1.15rem; }
 .refs li { margin: .3rem 0; }
 
-/* Page rules */
+/* Rules and links */
 hr { border: none; border-top: 1px solid var(--rule); margin: 1.5rem 0; }
-
-/* Links */
 a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* Print tweaks (nice PDF output) */
+/* TOC Toggle Button */
+.toc-toggle {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+  margin: 0;
+  padding: .75rem 1rem;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  background: #fafafa;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+/* Backdrop */
+.toc-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 1000;
+}
+
+/* Print */
 @media print {
   html { font-size: 12pt; }
   .page { margin: 0; padding: 0; }
   .abstract { background: #fff; }
   a { text-decoration: none; }
+  .sidebar, .toc-toggle, .toc-backdrop { display: none !important; }
+}
+
+/* Mobile / small screens */
+@media (max-width: 900px) {
+  .layout { display: block; margin: 0; padding: 0; }
+  .toc-toggle { display: block; }
+  .sidebar {
+    position: fixed;
+    z-index: 1002;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 18rem;
+    max-width: 85vw;
+    padding: 1rem;
+    border-right: 1px solid #ccc;
+    background: #fafafa;
+    transform: translateX(-100%);
+    transition: transform .25s ease-out;
+    box-shadow: 0 0 20px rgba(0,0,0,.15);
+  }
+  .sidebar.sidebar--open { transform: translateX(0); }
+  body.toc-open { overflow: hidden; }
+  .page { padding: 1rem; max-width: var(--page-width); margin: 0 auto; }
 }
