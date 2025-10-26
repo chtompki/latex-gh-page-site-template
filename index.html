@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sample Paper Title</title>
+  <!-- KaTeX for TeX-quality math (optional; safe to remove) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-y3bO1EoU1q0+1b0q2v3k8m0f8aXwBS5pVnH8f1xXQ7u0z3O5F8Y5v8x4zPfxeJ2H" crossorigin="anonymous">
+  <style>
+    :root {
+      --page-width: 46rem;   /* ≈ 6.5in at 12pt */
+      --text-color: #111;
+      --accent: #666;
+      --rule: #bbb;
+      --line-height: 1.55;
+    }
+
+    html { font-size: 16px; }
+    body {
+      margin: 0;
+      color: var(--text-color);
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-family: "Times New Roman", Times, Cambria, "Liberation Serif", serif;
+      line-height: var(--line-height);
+      hyphens: auto;
+    }
+
+    .page {
+      max-width: var(--page-width);
+      margin: 2.5rem auto 6rem auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Title block (\maketitle feel) */
+    .title-block { text-align: center; margin-bottom: 2rem; }
+    .title-block h1 {
+      margin: 0 0 .5rem 0;
+      font-weight: 700;
+      font-size: 1.9rem; /* ≈ 22.8pt */
+      letter-spacing: .2px;
+    }
+    .title-block .authors,
+    .title-block .affil,
+    .title-block .date { color: #333; font-size: 0.98rem; }
+    .title-block .authors { margin: .35rem 0; }
+    .title-block .affil { margin: 0; font-style: italic; }
+    .title-block .date { margin-top: .35rem; }
+
+    /* Abstract */
+    .abstract {
+      position: relative;
+      border: 1px solid var(--rule);
+      border-left-width: .35rem;
+      padding: .9rem 1rem .95rem 1rem;
+      margin: 1.75rem 0 2rem 0;
+      background: #fafafa;
+    }
+    .abstract::before {
+      content: "Abstract—";
+      font-weight: 700;
+      font-style: italic;
+      margin-right: .35rem;
+    }
+
+    /* Paragraphs, indentation like LaTeX */
+    p { margin: .45rem 0; text-indent: 1.5em; }
+    .noindent { text-indent: 0; }
+
+    /* Section numbering */
+    main { counter-reset: section subsection figure table eqn; }
+    h2, h3 { font-weight: 700; margin: 1.35rem 0 .5rem 0; line-height: 1.25; }
+    h2 { counter-increment: section; counter-reset: subsection; font-size: 1.25rem; }
+    h2::before { content: counter(section) ". "; }
+    h3 { counter-increment: subsection; font-size: 1.05rem; }
+    h3::before { content: counter(section) "." counter(subsection) " "; }
+
+    /* Figures and tables with captions */
+    figure, .table { margin: 1rem auto; }
+    figure { counter-increment: figure; }
+    figure > img { max-width: 100%; display: block; margin: 0 auto; }
+    figcaption { font-size: .95rem; color: #333; text-align: center; margin-top: .35rem; }
+    figcaption::before { content: "Figure " counter(figure) ": "; font-weight: 600; }
+
+    .table { counter-increment: table; }
+    .table > .caption {
+      font-size: .95rem; color: #333; text-align: center; margin: .35rem 0 .5rem; font-weight: 600;
+    }
+    .table > .caption::before { content: "Table " counter(table) ": "; }
+    table { width: 100%; border-collapse: collapse; font-size: .98rem; }
+    thead tr { border-bottom: 2px solid #000; }
+    tbody tr + tr { border-top: 1px solid #ddd; }
+    th, td { text-align: left; padding: .45rem .35rem; }
+
+    /* Equations: centered with (n) on right, LaTeX-like */
+    .equation { display: flex; align-items: center; margin: .8rem 0; }
+    .equation .content { flex: 1 1 auto; text-align: center; }
+    .equation .number { flex: 0 0 auto; width: 3rem; text-align: right; }
+    .equation { counter-increment: eqn; }
+    .equation .number::before { content: "(" counter(eqn) ")"; }
+
+    /* Footnotes */
+    sup.fn { font-size: .7em; vertical-align: super; }
+    .footnotes { border-top: 1px solid var(--rule); margin-top: 2rem; padding-top: .5rem; }
+    .footnotes ol { margin: .5rem 0 0 0; padding-left: 1.15rem; }
+
+    /* Bibliography (numeric) */
+    .refs { margin-top: 1.5rem; }
+    .refs h3 { margin-top: 1rem; }
+    .refs ol { padding-left: 1.15rem; }
+    .refs li { margin: .3rem 0; }
+
+    /* Page rules */
+    hr { border: none; border-top: 1px solid var(--rule); margin: 1.5rem 0; }
+
+    /* Links */
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Print tweaks (nice PDF output) */
+    @media print {
+      html { font-size: 12pt; }
+      .page { margin: 0; padding: 0; }
+      .abstract { background: #fff; }
+      a { text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="title-block">
+      <h1>Sample Paper Title in LaTeX Style</h1>
+      <div class="authors">Rob Tompkins<sup>1</sup>, Ada Lovelace<sup>2</sup></div>
+      <div class="affil"><sup>1</sup>Commonwealth Labs · <sup>2</sup>Analytical Engine Society</div>
+      <div class="date">October 25, 2025</div>
+    </header>
+
+    <section class="abstract">
+      This is a short abstract that summarizes the paper in a few sentences. It uses a bold italic “Abstract—” lead‑in and a subtle rule to mimic common LaTeX templates.
+    </section>
+
+    <main>
+      <h2>Introduction</h2>
+      <p class="noindent">LaTeX documents have a very particular rhythm: generous margins, first‑line paragraph indentation, numbered sections, and figure/table captions. This single‑file HTML template mimics that look‑and‑feel for the web.</p>
+      <p>Mathematics can be rendered with KaTeX or MathJax. For example, the quadratic formula can be typeset inline like <span class="katex">\(x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\)</span> or as a centered equation below.</p>
+
+      <div class="equation">
+        <div class="content"><span class="katex">\[e^{i\pi} + 1 = 0\]</span></div>
+        <div class="number"></div>
+      </div>
+
+      <h2>Background</h2>
+      <p>Section counters and subsection counters are implemented with CSS counters, so headings are automatically numbered. Use <code>&lt;h2&gt;</code> for sections and <code>&lt;h3&gt;</code> for subsections.</p>
+
+      <h3>Related Work</h3>
+      <p>References can be presented in a numbered list at the end of the document, similar to a LaTeX <em>thebibliography</em> environment<sup class="fn">1</sup>.</p>
+
+      <h2>Results</h2>
+      <p>Figures and tables are styled to resemble their LaTeX counterparts. Captions are auto‑numbered.</p>
+
+      <figure>
+        <img src="https://picsum.photos/900/400" alt="Placeholder figure"/>
+        <figcaption>A placeholder figure with an auto‑numbered caption.</figcaption>
+      </figure>
+
+      <div class="table">
+        <div class="caption">Experimental Results</div>
+        <table>
+          <thead>
+            <tr><th>Method</th><th>Score</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Baseline</td><td>71.2</td><td>Reference implementation</td></tr>
+            <tr><td>Our approach</td><td>84.7</td><td>Improved regularization</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Discussion</h2>
+      <p>Typography uses classic serif faces with first‑line indentation. For a closer match to Computer Modern, you may swap in a webfont like Latin Modern or STIX.</p>
+
+      <hr />
+      <section class="refs">
+        <h3>References</h3>
+        <ol>
+          <li>[1] Lamport, L. <em>LaTeX: A Document Preparation System</em>. Addison‑Wesley, 2nd ed., 1994.</li>
+          <li>[2] Knuth, D. E. <em>The TeXbook</em>. Addison‑Wesley, 1984.</li>
+        </ol>
+      </section>
+
+      <section class="footnotes">
+        <ol>
+          <li id="fn1">This is a sample footnote to demonstrate footnote styling.</li>
+        </ol>
+      </section>
+    </main>
+  </div>
+
+  <!-- Optional: render any KaTeX markup on load -->
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-5bqP8kzi6w8sQ7x8OEtq3Zx9oJ3m0m+uC7y6xqfmd6Xz8iH3ZJ9X3Q4z8u1Q1k0r" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQmN5K8fF7r4w1eXfYxQ3mF8Qxk2rF2z5Vw2gq5Wk2F2Yzv4tIYQkNwJQ0v" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}]});"></script>
+</body>
+</html>
