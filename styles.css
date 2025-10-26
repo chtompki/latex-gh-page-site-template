@@ -25,6 +25,41 @@ body {
 /* Ensure anchored headings are not hidden behind the top edge */
 h2[id], h3[id] { scroll-margin-top: 80px; }
 
+/* Layout: grid makes sticky rock-solid */
+.layout{
+    display:grid;
+    grid-template-columns: 16rem minmax(0,1fr); /* sidebar | paper */
+    column-gap: 2rem;
+    max-width: calc(16rem + 46rem + 8rem);
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Sidebar container sits at the top of the grid cell */
+.sidebar{
+    align-self:start;            /* important in grid */
+    border-right: 1px solid #ccc;
+    background:#fafafa;
+    padding:1rem;
+}
+
+/* The part that actually sticks */
+.sidebar-inner{
+    position: sticky;
+    top: 0;                      /* stick to top of viewport */
+    max-height: 100vh;           /* allow scrolling inside if long */
+    overflow: auto;
+}
+
+/* Main paper column */
+.page{
+    max-width: 46rem;
+}
+
+/* (Optional) if you previously had these, remove or override: */
+.sidebar{ height:auto; }       /* DO NOT force 100vh on the sticky element */
+.layout{ overflow: visible; }  /* Ensure no overflow hidden/auto on ancestors */
+
 /* Layout */
 .layout {
   display: flex;
